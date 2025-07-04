@@ -10,54 +10,49 @@ void DrawUFO(int, int);
 
 int DrawLine(int srcX, int srcY, int dstX, int dstY)
 {
-	int px = 1;
-	int py = 1;
-	int mx = dstX;
-	int my = dstY;
-	int lx = srcX;
-	int ly = srcY;
+	int sx = dstX;
+	int sy = dstY;
+	int dx = srcX;
+	int dy = srcY;
 
 	if (srcX < dstX)
 	{
-		mx = srcX;
-		lx = dstX;
+		sx = srcX;
+		dx = dstX;
 	}
 
 	if (srcY < dstY)
 	{
-		my = srcY;
-		ly = dstY;
+		sy = srcY;
+		dy = dstY;
 	}
 
-	double w, h;
+	double h, v;
 	if (abs(srcX - dstX) < abs(srcY - dstY))
 	{
-		w = 1;
-		h = abs(srcY - dstY) / abs(srcX - dstX);
+		h = 1;
+		v = abs(srcY - dstY) / abs(srcX - dstX);
 	}
 	else
 	{
-		w = abs(srcX - dstX) / abs(srcY - dstY);
-		h = 1;
+		h = abs(srcX - dstX) / abs(srcY - dstY);
+		v = 1;
 	}
 
 	if (srcX == dstX)
 	{
-		w = 0;
+		h = 0;
 	}
 
 	if (srcY == dstY)
 	{
-		h = 0;
+		v = 0;
 	}
 
-	px *= (int)w;
-	py *= (int)h;
-
-	mx -= 16;
-	my -= 16;
-	lx -= 16;
-	ly -= 16;
+	sx -= 16;
+	sy -= 16;
+	dx -= 16;
+	dy -= 16;
 
 	int count = 0;
 	int r = 1;
@@ -65,10 +60,10 @@ int DrawLine(int srcX, int srcY, int dstX, int dstY)
 	{
 		DrawUFO(mx, my);
 
-		mx += px;
-		my += py;
+		sx += (int)h;
+		sy += (int)v;
 
-		if (lx < mx && ly < my)
+		if (dx < sx && dy < sy)
 		{
 			break;
 		}
